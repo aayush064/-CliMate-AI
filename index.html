@@ -1,396 +1,369 @@
+# AI Climate Storyteller — Project Files
+
+This document contains all requested project files. Each file appears under its filename heading with the full contents as a code block. Save each block into a separate file with the same name.
+
+---
+
+## index.html
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CliMate AI - Your Personal Climate Education Companion</title>
-    <meta name="description" content="AI-powered personalized climate education platform that creates engaging stories and tracks environmental impact">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Climate Storyteller</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="earth-animation">🌍</div>
-            <h2>Loading Your Climate Journey...</h2>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-        </div>
-    </div>
+  <main class="container">
+    <header>
+      <h1>AI Climate Storyteller 🌍</h1>
+      <p class="tagline">Personalized, hopeful climate stories — made for inspiration and action.</p>
+    </header>
 
-    <!-- Main Application -->
-    <div id="app" class="app-container" style="display: none;">
-        <!-- Navigation Header -->
-        <header class="climate-header">
-            <nav class="nav-container">
-                <div class="logo">
-                    <i class="fas fa-leaf"></i>
-                    <h1>CliMate AI</h1>
-                </div>
-                <div class="nav-menu">
-                    <button class="nav-btn active" data-section="storyteller">
-                        <i class="fas fa-book-open"></i> Stories
-                    </button>
-                    <button class="nav-btn" data-section="tracker">
-                        <i class="fas fa-chart-line"></i> Impact
-                    </button>
-                    <button class="nav-btn" data-section="learn">
-                        <i class="fas fa-graduation-cap"></i> Learn
-                    </button>
-                    <button class="nav-btn" data-section="community">
-                        <i class="fas fa-users"></i> Community
-                    </button>
-                </div>
-                <div class="language-selector">
-                    <select id="language-select">
-                        <option value="en">🇺🇸 English</option>
-                        <option value="es">🇪🇸 Español</option>
-                        <option value="fr">🇫🇷 Français</option>
-                    </select>
-                </div>
-            </nav>
-        </header>
+    <section class="controls">
+      <label for="name">Your name</label>
+      <input id="name" type="text" placeholder="Enter your name" />
 
-        <!-- Main Content Container -->
-        <main class="main-content">
-            <!-- Welcome Section -->
-            <section id="welcome-section" class="welcome-section">
-                <div class="hero-content">
-                    <h2 class="hero-title" data-translate="hero.title">
-                        Discover Your Climate Story with AI
-                    </h2>
-                    <p class="hero-subtitle" data-translate="hero.subtitle">
-                        Get personalized climate education, track your environmental impact, and join a community of climate champions
-                    </p>
-                    <button class="cta-button" onclick="startJourney()">
-                        <i class="fas fa-rocket"></i>
-                        <span data-translate="hero.cta">Start Your Climate Journey</span>
-                    </button>
-                </div>
-                <div class="hero-visual">
-                    <canvas id="climate-globe" width="400" height="400"></canvas>
-                </div>
-            </section>
+      <label for="location">Location</label>
+      <input id="location" type="text" placeholder="City or community" />
 
-            <!-- AI Storyteller Section -->
-            <section id="storyteller" class="content-section active">
-                <div class="section-header">
-                    <h2 data-translate="storyteller.title">AI Climate Storyteller</h2>
-                    <p data-translate="storyteller.description">Get personalized climate stories based on your location and interests</p>
-                </div>
-                
-                <div class="storyteller-container">
-                    <div class="input-panel">
-                        <div class="location-input">
-                            <label for="user-location" data-translate="storyteller.location.label">Your Location</label>
-                            <div class="input-group">
-                                <input type="text" id="user-location" placeholder="Enter your city or allow location access" data-translate-placeholder="storyteller.location.placeholder">
-                                <button id="get-location-btn" class="location-btn" title="Use my current location">
-                                    <i class="fas fa-location-arrow"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="interests-input">
-                            <label for="user-interests" data-translate="storyteller.interests.label">What interests you most?</label>
-                            <select id="user-interests" multiple>
-                                <option value="renewable-energy" data-translate="interests.renewable">Renewable Energy</option>
-                                <option value="ocean-conservation" data-translate="interests.ocean">Ocean Conservation</option>
-                                <option value="forest-protection" data-translate="interests.forest">Forest Protection</option>
-                                <option value="sustainable-living" data-translate="interests.sustainable">Sustainable Living</option>
-                                <option value="climate-science" data-translate="interests.science">Climate Science</option>
-                                <option value="wildlife-protection" data-translate="interests.wildlife">Wildlife Protection</option>
-                            </select>
-                        </div>
-                        
-                        <div class="age-group-input">
-                            <label for="age-group" data-translate="storyteller.age.label">Age Group</label>
-                            <select id="age-group">
-                                <option value="13-15" data-translate="age.young">13-15 years</option>
-                                <option value="16-18" data-translate="age.teen">16-18 years</option>
-                                <option value="19-25" data-translate="age.young-adult">19-25 years</option>
-                                <option value="educator" data-translate="age.educator">I'm an educator</option>
-                            </select>
-                        </div>
-                        
-                        <button id="generate-story-btn" class="generate-btn">
-                            <i class="fas fa-magic"></i>
-                            <span data-translate="storyteller.generate">Generate My Climate Story</span>
-                        </button>
-                    </div>
-                    
-                    <div class="story-display">
-                        <div id="story-output" class="story-content">
-                            <div class="story-placeholder">
-                                <i class="fas fa-book-reader"></i>
-                                <p data-translate="storyteller.placeholder">Your personalized climate story will appear here...</p>
-                            </div>
-                        </div>
-                        <div id="story-actions" class="story-actions" style="display: none;">
-                            <button class="action-btn" onclick="shareStory()">
-                                <i class="fas fa-share"></i>
-                                <span data-translate="actions.share">Share Story</span>
-                            </button>
-                            <button class="action-btn" onclick="saveStory()">
-                                <i class="fas fa-bookmark"></i>
-                                <span data-translate="actions.save">Save Story</span>
-                            </button>
-                            <button class="action-btn" onclick="getMoreStories()">
-                                <i class="fas fa-plus"></i>
-                                <span data-translate="actions.more">More Stories</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <label for="language">Language</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="ne">Nepali</option>
+      </select>
 
-            <!-- Impact Tracker Section -->
-            <section id="tracker" class="content-section">
-                <div class="section-header">
-                    <h2 data-translate="tracker.title">Your Climate Impact</h2>
-                    <p data-translate="tracker.description">Track your daily actions and see their environmental impact</p>
-                </div>
-                
-                <div class="tracker-container">
-                    <div class="impact-dashboard">
-                        <div class="impact-card">
-                            <div class="impact-icon">🌱</div>
-                            <div class="impact-data">
-                                <h3 id="carbon-saved">0 kg</h3>
-                                <p data-translate="tracker.carbon">CO₂ Saved Today</p>
-                            </div>
-                        </div>
-                        
-                        <div class="impact-card">
-                            <div class="impact-icon">💧</div>
-                            <div class="impact-data">
-                                <h3 id="water-saved">0 L</h3>
-                                <p data-translate="tracker.water">Water Conserved</p>
-                            </div>
-                        </div>
-                        
-                        <div class="impact-card">
-                            <div class="impact-icon">⚡</div>
-                            <div class="impact-data">
-                                <h3 id="energy-saved">0 kWh</h3>
-                                <p data-translate="tracker.energy">Energy Saved</p>
-                            </div>
-                        </div>
-                        
-                        <div class="impact-card">
-                            <div class="impact-icon">🏆</div>
-                            <div class="impact-data">
-                                <h3 id="eco-score">0</h3>
-                                <p data-translate="tracker.score">Eco Score</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="action-logger">
-                        <h3 data-translate="tracker.log.title">Log Your Climate Actions</h3>
-                        <div class="action-grid">
-                            <button class="action-tile" data-action="walked" data-impact="2.5">
-                                <i class="fas fa-walking"></i>
-                                <span data-translate="actions.walked">Walked instead of driving</span>
-                                <small>-2.5 kg CO₂</small>
-                            </button>
-                            <button class="action-tile" data-action="recycled" data-impact="1.2">
-                                <i class="fas fa-recycle"></i>
-                                <span data-translate="actions.recycled">Recycled waste</span>
-                                <small>-1.2 kg CO₂</small>
-                            </button>
-                            <button class="action-tile" data-action="energy" data-impact="3.1">
-                                <i class="fas fa-lightbulb"></i>
-                                <span data-translate="actions.energy">Used energy-efficient appliances</span>
-                                <small>-3.1 kg CO₂</small>
-                            </button>
-                            <button class="action-tile" data-action="water" data-impact="0.8">
-                                <i class="fas fa-tint"></i>
-                                <span data-translate="actions.water">Conserved water</span>
-                                <small>-0.8 kg CO₂</small>
-                            </button>
-                            <button class="action-tile" data-action="plant" data-impact="5.0">
-                                <i class="fas fa-seedling"></i>
-                                <span data-translate="actions.plant">Planted a tree</span>
-                                <small>-5.0 kg CO₂</small>
-                            </button>
-                            <button class="action-tile" data-action="public" data-impact="4.2">
-                                <i class="fas fa-bus"></i>
-                                <span data-translate="actions.public">Used public transport</span>
-                                <small>-4.2 kg CO₂</small>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-visualization">
-                        <h3 data-translate="tracker.progress">Your Weekly Progress</h3>
-                        <canvas id="progress-chart" width="600" height="300"></canvas>
-                    </div>
-                </div>
-            </section>
+      <div class="buttons">
+        <button id="generate">Generate Story</button>
+        <button id="generate-ai">Generate (AI)</button>
+        <button id="randomize">Surprise Me</button>
+      </div>
+    </section>
 
-            <!-- Learning Section -->
-            <section id="learn" class="content-section">
-                <div class="section-header">
-                    <h2 data-translate="learn.title">Climate Learning Hub</h2>
-                    <p data-translate="learn.description">Interactive lessons and quizzes powered by AI</p>
-                </div>
-                
-                <div class="learning-container">
-                    <div class="lesson-categories">
-                        <button class="category-btn active" data-category="basics">
-                            <i class="fas fa-thermometer-half"></i>
-                            <span data-translate="learn.basics">Climate Basics</span>
-                        </button>
-                        <button class="category-btn" data-category="solutions">
-                            <i class="fas fa-solar-panel"></i>
-                            <span data-translate="learn.solutions">Climate Solutions</span>
-                        </button>
-                        <button class="category-btn" data-category="impact">
-                            <i class="fas fa-globe-americas"></i>
-                            <span data-translate="learn.impact">Global Impact</span>
-                        </button>
-                        <button class="category-btn" data-category="action">
-                            <i class="fas fa-hands-helping"></i>
-                            <span data-translate="learn.action">Take Action</span>
-                        </button>
-                    </div>
-                    
-                    <div class="lesson-content">
-                        <div id="current-lesson" class="lesson-display">
-                            <h3 data-translate="learn.current.title">Introduction to Climate Change</h3>
-                            <div class="lesson-body">
-                                <p data-translate="learn.current.intro">Climate change refers to long-term shifts in global temperatures and weather patterns...</p>
-                                <div class="interactive-element">
-                                    <canvas id="temperature-trend" width="400" height="200"></canvas>
-                                </div>
-                            </div>
-                            <div class="lesson-controls">
-                                <button class="lesson-btn" onclick="startQuiz()">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span data-translate="learn.quiz">Take Quiz</span>
-                                </button>
-                                <button class="lesson-btn" onclick="nextLesson()">
-                                    <i class="fas fa-arrow-right"></i>
-                                    <span data-translate="learn.next">Next Lesson</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <section class="story-area">
+      <article id="story" class="story">Your story will appear here...</article>
+    </section>
 
-            <!-- Community Section -->
-            <section id="community" class="content-section">
-                <div class="section-header">
-                    <h2 data-translate="community.title">Climate Champions Community</h2>
-                    <p data-translate="community.description">Connect with peers and share your climate journey</p>
-                </div>
-                
-                <div class="community-container">
-                    <div class="leaderboard">
-                        <h3 data-translate="community.leaderboard">🏆 Top Climate Champions</h3>
-                        <div class="leaderboard-list">
-                            <div class="leaderboard-item">
-                                <span class="rank">1</span>
-                                <span class="name">Sarah from Canada 🇨🇦</span>
-                                <span class="score">2,847 pts</span>
-                            </div>
-                            <div class="leaderboard-item">
-                                <span class="rank">2</span>
-                                <span class="name">Miguel from Spain 🇪🇸</span>
-                                <span class="score">2,634 pts</span>
-                            </div>
-                            <div class="leaderboard-item">
-                                <span class="rank">3</span>
-                                <span class="name">Aisha from Kenya 🇰🇪</span>
-                                <span class="score">2,521 pts</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="challenges">
-                        <h3 data-translate="community.challenges">🎯 Weekly Challenges</h3>
-                        <div class="challenge-list">
-                            <div class="challenge-item">
-                                <div class="challenge-icon">🚴</div>
-                                <div class="challenge-info">
-                                    <h4 data-translate="challenges.bike">Bike to School Week</h4>
-                                    <p data-translate="challenges.bike.desc">Cycle instead of taking motorized transport</p>
-                                    <div class="challenge-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 65%"></div>
-                                        </div>
-                                        <span>65% Complete</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="challenge-item">
-                                <div class="challenge-icon">🌱</div>
-                                <div class="challenge-info">
-                                    <h4 data-translate="challenges.plant">Plant for the Planet</h4>
-                                    <p data-translate="challenges.plant.desc">Help plant 1000 trees this month</p>
-                                    <div class="challenge-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 34%"></div>
-                                        </div>
-                                        <span>34% Complete</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="share-story">
-                        <h3 data-translate="community.share">Share Your Story</h3>
-                        <textarea id="user-story" placeholder="Share your climate action story with the community..." data-translate-placeholder="community.share.placeholder"></textarea>
-                        <button class="share-btn" onclick="shareUserStory()">
-                            <i class="fas fa-share"></i>
-                            <span data-translate="community.share.btn">Share Story</span>
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </main>
+    <section class="extras">
+      <div id="visualization" class="viz"></div>
+      <details>
+        <summary>Why this matters</summary>
+        <p>This demo connects personal action to community outcomes in a hopeful, tangible way.</p>
+      </details>
+    </section>
 
-        <!-- Chat Assistant -->
-        <div id="chat-assistant" class="chat-assistant">
-            <button id="chat-toggle" class="chat-toggle">
-                <i class="fas fa-comments"></i>
-            </button>
-            <div id="chat-window" class="chat-window">
-                <div class="chat-header">
-                    <h4>🤖 Climate AI Assistant</h4>
-                    <button id="chat-close" class="chat-close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div id="chat-messages" class="chat-messages">
-                    <div class="message assistant">
-                        <div class="message-content">
-                            <p data-translate="chat.welcome">Hi! I'm your Climate AI assistant. Ask me anything about climate change, sustainability, or environmental action!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-input">
-                    <input type="text" id="chat-input" placeholder="Ask me about climate change..." data-translate-placeholder="chat.placeholder">
-                    <button id="chat-send">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <footer>
+      <small>Built for hackathons • Works offline • Optional AI integration</small>
+    </footer>
+  </main>
 
-    <!-- Scripts -->
-    <script src="translations.js"></script>
-    <script src="climate-data.js"></script>
-    <script src="ai-integration.js"></script>
-    <script src="visualizations.js"></script>
-    <script src="app.js"></script>
+  <script src="translations.js"></script>
+  <script src="climate-data.js"></script>
+  <script src="ai-integration.js"></script>
+  <script src="visualizations.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
+```
+
+---
+
+## style.css
+
+```css
+:root{
+  --bg1: #d7f7e4;
+  --bg2: #b6e0f7;
+  --accent: #2d9c6b;
+  --card: #ffffff;
+  --muted: #6b7280;
+}
+
+*{box-sizing: border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  color:#0f172a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:36px;
+}
+.container{
+  width:100%;
+  max-width:900px;
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:0 12px 30px rgba(2,6,23,0.12);
+  padding:28px;
+}
+header{margin-bottom:12px}
+h1{margin:0;font-size:1.9rem}
+.tagline{color:var(--muted);margin-top:6px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;margin-top:18px}
+.controls label{grid-column:span 2;text-align:left;font-weight:600;color:var(--muted)}
+.controls input, .controls select{padding:10px;border-radius:10px;border:1px solid #e6eef6}
+.buttons{grid-column:span 2;display:flex;gap:10px;margin-top:6px}
+button{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:white;cursor:pointer;font-weight:600}
+button.secondary{background:#0ea5e9}
+.story-area{margin-top:18px}
+.story{min-height:140px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#f8fcff,#eef7fb);white-space:pre-wrap}
+.extras{display:flex;gap:16px;align-items:flex-start;margin-top:18px}
+.viz{flex:1;padding:12px;border-radius:10px;background:#fbfffd;min-height:120px}
+footer{margin-top:18px;text-align:center;color:var(--muted)}
+
+@media (max-width:640px){
+  .controls{grid-template-columns:1fr}
+  .buttons{flex-direction:column}
+}
+```
+
+---
+
+## translations.js
+
+```javascript
+// Minimal translation bundle to support two languages (English, Nepali)
+const TRANSLATIONS = {
+  en: {
+    placeholderName: 'Enter your name',
+    placeholderLocation: 'City or community',
+    generate: 'Generate Story',
+    generateAI: 'Generate (AI)',
+    surprise: 'Surprise Me'
+  },
+  ne: {
+    placeholderName: 'आफ्नो नाम लेख्नुहोस्',
+    placeholderLocation: 'शहर वा समुदाय',
+    generate: 'कथा बनाउनुहोस्',
+    generateAI: 'एआई प्रयोग गरेर बनाउने',
+    surprise: 'मलाई अचम्मित पार'
+  }
+};
+
+function t(lang, key) {
+  return (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) || TRANSLATIONS['en'][key];
+}
+```
+
+---
+
+## climate-data.js
+
+```javascript
+// Lightweight sample climate facts and localized suggestions
+const CLIMATE_FACTS = [
+  { id: 'trees', title: 'Trees planted', text: 'Trees improve air, shade streets and cool cities.' },
+  { id: 'solar', title: 'Solar adoption', text: 'Rooftop solar reduces dependence on fossil fuels.' },
+  { id: 'water', title: 'Water restoration', text: 'Small actions reduce pollution and restore streams.' }
+];
+
+// Sample localized data — in a real project you'd fetch from an API
+const SAMPLE_LOCAL_STATS = {
+  'Kathmandu': { avgTempRise: 1.2, solarHomesPct: 8, greenCoverPct: 22 },
+  'default': { avgTempRise: 0.9, solarHomesPct: 5, greenCoverPct: 15 }
+};
+
+function getLocalStats(location) {
+  if(!location) return SAMPLE_LOCAL_STATS['default'];
+  return SAMPLE_LOCAL_STATS[location] || SAMPLE_LOCAL_STATS['default'];
+}
+```
+
+---
+
+## ai-integration.js
+
+```javascript
+/*
+  ai-integration.js
+
+  This file contains two helper functions:
+  - generateStoryOffline(name, location)  -> returns a local randomized story
+  - generateStoryUsingAPI(name, location, options) -> optional stub to call real AI (commented)
+
+  For hackathon submission we use offline generation to avoid keys or network issues.
+*/
+
+function generateStoryOffline(name, location) {
+  const stories = [
+    `${name}, in ${location} the year 2040 was brighter than ever. Thanks to solar panels and wind farms, clean energy powered every home. Your choices inspired thousands to embrace a greener life.`,
+    `In ${location}, ${name} became a role model. By planting trees and reducing waste, the community flourished with green parks, clean rivers, and fresh air. Children played freely in nature again.`,
+    `${name}, imagine ${location} in 2040: electric buses replaced smoke-belching vehicles, and the skies turned clear blue. People remembered your small step of biking to school as the spark of change.`,
+    `${location} transformed because of leaders like you, ${name}. Water was conserved, rivers were restored, and families lived healthier lives. A single action today echoed into a better tomorrow.`,
+    `The year 2040 arrived, and ${location} was a place of hope. Solar rooftops, vertical gardens, and community cleanups made it thrive. ${name}, your early actions made all the difference.`
+  ];
+
+  const idx = Math.floor(Math.random() * stories.length);
+  return stories[idx];
+}
+
+/*
+// Optional: example of how to implement a server-backed AI call.
+// DO NOT include API keys in client-side code for production. Use a server endpoint.
+async function generateStoryUsingAPI(name, location, serverEndpoint='/api/generate'){
+  const res = await fetch(serverEndpoint, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({name, location})
+  });
+  const data = await res.json();
+  return data.story;
+}
+*/
+```
+
+---
+
+## visualizations.js
+
+```javascript
+// Simple DOM-based visualization: shows three progress bars for sample local stats
+function renderVisualization(containerId, location) {
+  const container = document.getElementById(containerId);
+  const stats = getLocalStats(location);
+  container.innerHTML = '';
+
+  const items = [
+    {label:'Avg temp rise (°C)', value: stats.avgTempRise},
+    {label:'Solar homes (%)', value: stats.solarHomesPct},
+    {label:'Green cover (%)', value: stats.greenCoverPct}
+  ];
+
+  items.forEach(it => {
+    const row = document.createElement('div');
+    row.style.marginBottom = '10px';
+
+    const label = document.createElement('div');
+    label.textContent = `${it.label}: ${it.value}`;
+    label.style.fontSize = '0.9rem';
+    label.style.color = '#334155';
+
+    const barOuter = document.createElement('div');
+    barOuter.style.height = '10px';
+    barOuter.style.borderRadius = '8px';
+    barOuter.style.background = '#eef2ff';
+    barOuter.style.marginTop = '6px';
+
+    const barInner = document.createElement('div');
+    barInner.style.height = '100%';
+    // scale value to max 100 for display purposes
+    const pct = Math.min(100, it.value * (it.label.includes('%') ? 1 : 20));
+    barInner.style.width = pct + '%';
+    barInner.style.borderRadius = '8px';
+    barInner.style.background = '#10b981';
+    barInner.style.transition = 'width 600ms ease';
+
+    barOuter.appendChild(barInner);
+    row.appendChild(label);
+    row.appendChild(barOuter);
+    container.appendChild(row);
+  });
+}
+```
+
+---
+
+## app.js
+
+```javascript
+// Main app glue code: wire up UI and call helper modules
+
+function initUI() {
+  const nameEl = document.getElementById('name');
+  const locEl = document.getElementById('location');
+  const langEl = document.getElementById('language');
+  const storyEl = document.getElementById('story');
+  const vizElId = 'visualization';
+
+  // localize placeholders
+  function applyLocale() {
+    const lang = langEl.value;
+    nameEl.placeholder = t(lang, 'placeholderName');
+    locEl.placeholder = t(lang, 'placeholderLocation');
+    document.getElementById('generate').textContent = t(lang, 'generate');
+    document.getElementById('generate-ai').textContent = t(lang, 'generateAI');
+    document.getElementById('randomize').textContent = t(lang, 'surprise');
+  }
+
+  langEl.addEventListener('change', applyLocale);
+  applyLocale();
+
+  document.getElementById('generate').addEventListener('click', () => {
+    const name = nameEl.value.trim() || 'Friend';
+    const loc = locEl.value.trim() || 'your community';
+    const s = generateStoryOffline(name, loc);
+    storyEl.textContent = s;
+    renderVisualization(vizElId, loc);
+  });
+
+  document.getElementById('generate-ai').addEventListener('click', async () => {
+    const name = nameEl.value.trim() || 'Friend';
+    const loc = locEl.value.trim() || 'your community';
+    storyEl.textContent = 'Generating... (offline demo will be used)';
+
+    // For the hackathon submission we default to offline generator
+    const s = generateStoryOffline(name, loc);
+    storyEl.textContent = s;
+    renderVisualization(vizElId, loc);
+
+    // If you later add a server endpoint, call generateStoryUsingAPI()
+  });
+
+  document.getElementById('randomize').addEventListener('click', () => {
+    const sampleNames = ['Asha','Sita','Ravi','Mina','Jon'];
+    const sampleLocs = ['Kathmandu','Pokhara','Lalitpur','Butwal','Biratnagar'];
+    document.getElementById('name').value = sampleNames[Math.floor(Math.random()*sampleNames.length)];
+    document.getElementById('location').value = sampleLocs[Math.floor(Math.random()*sampleLocs.length)];
+    document.getElementById('generate').click();
+  });
+}
+
+window.addEventListener('DOMContentLoaded', initUI);
+```
+
+---
+
+## README.md
+
+```markdown
+# AI Climate Storyteller
+
+A lightweight, hackathon-ready static website that generates personalized, uplifting climate stories. Designed to run offline (no API keys required), while offering clear extension points for server-side AI integration.
+
+## Files
+- `index.html` – main page
+- `style.css` – styling and layout
+- `translations.js` – simple localization bundle (English and Nepali)
+- `climate-data.js` – sample local climate stats and facts
+- `ai-integration.js` – offline story generator and optional AI stub
+- `visualizations.js` – small DOM-based visualizations showing local stats
+- `app.js` – app glue that wires up UI to generators
+- `README.md` – this file
+
+## How to run
+1. Download or clone the project
+2. Open `index.html` in any modern web browser
+3. Enter a name and location and click *Generate Story*
+
+## How it works
+- The app uses a small library of pre-written stories (in `ai-integration.js`) to simulate AI-generated, personalized content.
+- `visualizations.js` renders simple progress bars using sample local stats from `climate-data.js`.
+- Localization for basic UI strings is in `translations.js`.
+
+## Extending with real AI (optional)
+- For real AI-generated stories, implement a server endpoint that calls an LLM provider (OpenAI, Hugging Face).
+- Keep your API keys on the server — never embed them in client-side JS.
+- Replace the offline call in `app.js` with a call to your server endpoint (see comments in `ai-integration.js`).
+
+## Submission notes
+- This static bundle is intentionally self-contained for hackathon judging — no backend required.
+- To demo AI capabilities live, provide a short video showing how you'd swap the offline generator with a server-powered LLM.
+
+## License
+MIT — feel free to reuse and adapt for learning and hackathon purposes.
+```
